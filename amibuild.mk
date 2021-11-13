@@ -67,7 +67,8 @@ RISCV_TOOLS_DIR=$(BSG_MANYCORE_DIR)/software/riscv-tools/
 RISCV_INSTALL_DIR=$(RISCV_TOOLS_DIR)/riscv-install/
 riscv-tools: $(RISCV_INSTALL_DIR)
 $(RISCV_INSTALL_DIR): 
-	make -j8 -C $(RISCV_TOOLS_DIR) install-clean
+	ln -s /work/shared/common/project_build/bigblade-04-01/bsg_manycore/software/riscv-tools/riscv-install $(RISCV_TOOLS_DIR)/riscv-install
+	ln -s /work/shared/common/project_build/bigblade-04-01/bsg_manycore/software/riscv-tools/llvm $(RISCV_TOOLS_DIR)/llvm
 
 # TODO: Set permissions
 XDMA_KO_FILE := /lib/modules/$(shell uname -r)/extra/xdma.ko
