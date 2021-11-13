@@ -107,11 +107,11 @@ The default VCS environment simulates the manycore architecture, without any clo
 
 6. Run `make -f amibuild.mk riscv-tools`
 
-7. `export BRG_BSG_BLADERUNNER_DIR=$Your_path_to_bladerunner/bsg_bladerunner/` \\
-   `export BSG_MACHINE=pod_X1Y1_ruche_X16Y8_hbm_one_pseudo_channel` \\
-   `export BSG_MACHINE_PATH=$BRG_BSG_BLADERUNNER_DIR/bsg_replicant/machines/$BSG_MACHINE` \\
-   `module load synopsys-2020/synopsys-vcs-R-2020.12` \\
-   `source bashrc` \\
+7. `export BRG_BSG_BLADERUNNER_DIR=$Your_path_to_bladerunner/bsg_bladerunner/` \
+   `export BSG_MACHINE=pod_X1Y1_ruche_X16Y8_hbm_one_pseudo_channel` \
+   `export BSG_MACHINE_PATH=$BRG_BSG_BLADERUNNER_DIR/bsg_replicant/machines/$BSG_MACHINE` \
+   `module load synopsys-2020/synopsys-vcs-R-2020.12` \
+   `source bashrc` \
 
 8. `cd bsg_replicant/examples/cuda/test_spgemm`
    `make profile.log`
