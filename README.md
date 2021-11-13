@@ -95,12 +95,26 @@ The default VCS environment simulates the manycore architecture, without any clo
 
 1. [Add SSH Keys to your GitHub account](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account). 
 
+2. cd bsg_bladerunner
+
 2. Initialize the submodules: `git submodule update --init --recursive`
 
-3. (BSG Users Only: `git clone git@bitbucket.org:taylor-bsg/bsg_cadenv.git`)
+3. Replace link file: `cp replace_files/link.mk bsg_replicant/libraries/platforms/bigblade-vcs/`
 
-4. Run `make -f amibuild.mk riscv-tools`
+4. Replace bsg_manycore_link_gen: `cp replace_files/bsg_manycore_link_gen.py bsg_manycore/software/py/`
 
+5. Put your host code and kernel code into bsg_replicant: `cp -r replace_files/test_spgemm/ bsg_replicant/examples/cuda/`
+
+6. Run `make -f amibuild.mk riscv-tools`
+
+7. `export BRG_BSG_BLADERUNNER_DIR=$Your_path_to_bladerunner/bsg_bladerunner/`
+   `export BSG_MACHINE=pod_X1Y1_ruche_X16Y8_hbm_one_pseudo_channel`
+   `export BSG_MACHINE_PATH=$BRG_BSG_BLADERUNNER_DIR/bsg_replicant/machines/$BSG_MACHINE`
+   `module load synopsys-2020/synopsys-vcs-R-2020.12`
+   `source bashrc`
+
+8. `cd bsg_replicant/examples/cuda/test_spgemm`
+   `make profile.log`
 
 ## Setup: Verilator (Beta)
 

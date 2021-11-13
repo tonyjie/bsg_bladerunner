@@ -1,0 +1,1 @@
+/home/zz546/bsg_bladerunner/bsg_manycore/software/spmd/bsg_cuda_lite_runtime/main/main.c
