@@ -1,1 +1,10 @@
-/home/zz546/bsg_bladerunner/bsg_manycore/software/spmd/bsg_cuda_lite_runtime/main/main.c
+#include "bsg_manycore.h"
+#include "bsg_set_tile_x_y.h"
+#include "bsg_cuda_lite_runtime.h"
+
+
+int main()
+{
+        __wait_until_valid_func();
+}
+
