@@ -101,7 +101,7 @@ The default VCS environment simulates the manycore architecture, without any clo
 
 3. Replace link file: `cp replace_files/link.mk bsg_replicant/libraries/platforms/bigblade-vcs/`
 
-4. Replace bsg_manycore_link_gen: `cp replace_files/bsg_manycore_link_gen.py bsg_manycore/software/py/`
+4. Replace the first line of bsg_manycore/software/py/bsg_manycore_link_gen.py with `#!/usr/bin/env python`
 
 5. Put your host code and kernel code into bsg_replicant: `cp -r replace_files/test_spgemm/ bsg_replicant/examples/cuda/`
 
