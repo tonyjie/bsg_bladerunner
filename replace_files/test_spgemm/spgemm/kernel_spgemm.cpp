@@ -18,12 +18,14 @@
 #define bsg_tiles_X BSG_TILE_GROUP_X_DIM
 #define bsg_tiles_Y BSG_TILE_GROUP_Y_DIM
 #include <bsg_manycore.h>
-#include <bsg_tile_group_barrier.h>
+#include <bsg_set_tile_x_y.h>
+#include <bsg_tile_group_barrier.hpp>
 #include <cstdint>
 #include <cstring>
 #include <vector>
 #include <cmath>
-INIT_TILE_GROUP_BARRIER(r_barrier, c_barrier, 0, bsg_tiles_X-1, 0, bsg_tiles_Y-1);
+
+bsg_barrier<bsg_tiles_X, bsg_tiles_Y> barrier;
 
 /////////////////////////////////////////////////
 // CSR sparse matrix data structure and utilities
@@ -91,7 +93,6 @@ int  __attribute__ ((noinline)) kernel_spgemm(sparse_mat_t *A,
 
   data_t sum;
   int curr_nnz = 0;
- 
   bsg_cuda_print_stat_kernel_start();
 
   //Iterate over rows of A 
@@ -133,14 +134,14 @@ int  __attribute__ ((noinline)) kernel_spgemm(sparse_mat_t *A,
   // update tile_nonzero value with curr_nnz so each tile knows how many nnz the others have
   tile_nnz[__bsg_id] = curr_nnz;
 
-  bsg_tile_group_barrier(&r_barrier, &c_barrier);
+  barrier.sync();
 
   //Update output idx_ptr
   if (__bsg_id == 0)
     for (int i = 1; i < A_Height + 1; i++)
       Out->idx_ptrs[i] += Out->idx_ptrs[i-1];
 
-  bsg_tile_group_barrier(&r_barrier, &c_barrier);
+  barrier.sync();
 
   // each tile looks at previous entry in tile_nonzero to figure out where its start index in output array is
   
@@ -156,16 +157,16 @@ int  __attribute__ ((noinline)) kernel_spgemm(sparse_mat_t *A,
     }
   }
   
-  bsg_tile_group_barrier(&r_barrier, &c_barrier);
+  barrier.sync();
 
   if (__bsg_id == 0){
     Out->m=A_Height; 
     Out->n=B_Width; 
     Out->nnz=tile_boundary[128];
   }
-   
-  bsg_tile_group_barrier(&r_barrier, &c_barrier);
+  
   bsg_cuda_print_stat_kernel_end();
+  barrier.sync();
 
   return 0;
 }
