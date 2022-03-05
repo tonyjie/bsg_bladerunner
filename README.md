@@ -113,7 +113,8 @@ The default VCS environment simulates the manycore architecture, without any clo
    `module load synopsys-2020/synopsys-vcs-R-2020.12` \ 
    You can put these lines into your bash file and then `source ~/.bashrc` 
 
-8. `cd bsg_replicant/examples/cuda/test_spgemm` \
+8. `Replace the PUBLIC_PATH in /test_spgemm/spgemm/Makefile with your bsg_bladerunner path`
+9. `cd bsg_replicant/examples/cuda/test_spgemm` \
    Fast simulation without profiling: `make exec.log` \
    Generating profilie result: `make profile.log` \
    Parse csv to generate the profile log: `python /work/shared/common/project_build/bigblade-6.4/bsg_manycore/software/py/vanilla_parser/stats_parser.py --stats vanilla_stats.csv --vcache-stats vcache_stats.csv --tile` \
