@@ -436,7 +436,6 @@ sparse_mat_t *CSR_transpose(sparse_mat_t *A){
   return result; 
 }
 
-
 int test_spgemm(int argc, char *argv[]) {
   char *bin_path, *test_name;
   struct arguments_path args = {NULL, NULL};
