@@ -22,7 +22,8 @@ KERNEL_NAME ?=kernel_spgemm
 
 OBJECT_FILES=main.o kernel_spgemm.o
 
-PUBLIC_PATH = /work/shared/common/project_build/bigblade-6.4
+# PUBLIC_PATH = /work/shared/common/project_build/bigblade-6.4
+PUBLIC_PATH = /home/jl4257/Project/Pangenomics/bsg_bladerunner
 
 include $(PUBLIC_PATH)/bsg_manycore/software/spmd/Makefile.include
 
