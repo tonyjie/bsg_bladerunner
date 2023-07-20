@@ -1,0 +1,10 @@
+Hi,
+
+To Run this code:
+1. Set up the bsg replicant environment
+2. Copy the code to the 
+        /bsg_bladerunner_zhang/bsg_bladerunner/bsg_replicant/examples/cuda/
+3. If the environment is set up correctly the example can be run by typing 
+    make exec.log
+4. To change the number of loops/iterations you have to change the variable iter_max in the main.cpp 
+   and the bound for the inner loop in kernel.cpp. (the inner loop inside the inner loop comments are left there indicating what to change)
