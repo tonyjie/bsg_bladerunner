@@ -141,6 +141,29 @@ void get_data(){
     // cout<<step_id<<endl;
 }
 
+double zetaf(unsigned long __n, double __theta)
+{
+    double ans = 0.0;
+    for(unsigned long i=1; i<=__n; ++i)
+    ans += pow(1.0/i, __theta);
+    return ans;
+}
+
+
+uint64_t get_zipf(double a, double b, double theta, double zeta)
+{
+    double alpha = 1 / (1 - theta);
+    double eta = (1 - pow(2.0 / (b - a + 1), 1 - theta)) / (1 - zetaf(2,theta) / zeta);
+      
+    double u = rand()/(RAND_MAX  +  1.0);
+      
+    double uz = u * zeta;
+    if(uz < 1.0) return a;
+    if(uz < 1.0 + pow(0.5, theta)) return a + 1;
+
+    return a + ((b - a + 1) * pow(eta*u-eta+1, alpha));    
+}
+
 void sgd_layout(){
     double eta_max = 17000*17000;
     double w_min = (double) 1.0 / (double) (eta_max);
@@ -200,7 +223,7 @@ void sgd_layout(){
                 space = space_max + (jump_space - space_max) / space_quantization_step + 1;
             }
 
-            uint32_t z_i = cuda_rnd_zipf(thread_rnd_state, jump_space, theta, zetas[2], zetas[space]);
+            uint32_t z_i = get_zipf(1, jump_space, theta, zetas[space]);
             s2_idx = s1_idx - z_i;
         } else {
             // go forward
@@ -210,7 +233,7 @@ void sgd_layout(){
                 space = space_max + (jump_space - space_max) / space_quantization_step + 1;
             }
 
-            uint32_t z_i = cuda_rnd_zipf(thread_rnd_state, jump_space, theta, zetas[2], zetas[space]);
+            uint32_t z_i = get_zipf(1, jump_space, theta, zetas[space]);
             s2_idx = s1_idx + z_i;
         }
     } else {
